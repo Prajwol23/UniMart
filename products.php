@@ -45,7 +45,7 @@ if (isset($_GET['category']))
                                             <div class="card shadow">
                                                 <div class="card-body">
                                                     <img src="uploads/<?= $item['image']; ?>" alt="Product Image" class="w-100"
-                                                        style="height: 200px; object-fit: cover;">
+                                                    style="height: 200px; object-fit: cover;">
                                                     <h4 class="text-center"><?= $item['name']; ?></h4>
                                                 </div>
                                             </div>

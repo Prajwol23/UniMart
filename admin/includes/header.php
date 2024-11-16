@@ -28,7 +28,7 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="assets/css/material-dashboard.min.css" rel="stylesheet" />
 
-  <!-- Alertify JS -->
+  <!-- Alertify JS css-->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
   

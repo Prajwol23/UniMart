@@ -14,6 +14,13 @@
         <li class="nav-item">
           <a class="nav-link" href="categories.php">Collections</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.php">Cart</a> 
+        </li>
+        <!-- <i class="fa fa-shopping-cart me-2"></i> -->
+
+        <!-- place line 17 to 19 inside line no 24 code so that the user can only add to cart if he is logged in -->
+
         <?php
         if (isset($_SESSION['auth'])) {
           ?>
