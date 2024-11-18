@@ -9,14 +9,17 @@ if (isset($_GET['tracking_no'])) {
 
     $orderData = checkTrackingNoValid($tracking_no);
 
-    if (mysqli_num_rows($orderData) < 0) {
+    if (mysqli_num_rows($orderData) < 0) 
+    {
         ?>
 
         <h4>Something Went Wrong</h4>
         <?php
         die();
     }
-} else {
+} 
+else 
+{
     ?>
 
     <h4>Something Went Wrong</h4>

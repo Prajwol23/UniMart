@@ -11,6 +11,15 @@ function getAllActive($table) //getting all the categories that are active by st
 }
 
 //user side
+function getAllTrending() //getting all the categories that are active by status
+{
+   global $con;
+   $query = "SELECT * FROM products WHERE trending = '1' ";  //status 0 means active
+   return $query_run = mysqli_query($con,$query);
+}
+
+
+//user side
 function getIDActive($table, $id)
 {
    global $con;

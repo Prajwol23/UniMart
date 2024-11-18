@@ -2,7 +2,11 @@
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 
+<!-- Custom js made by me -->
 <script src="assets/js/custom.js"></script>
+
+  <!-- Owl Carousel Js -->
+<script src="assets/js/owl.carousel.min.js"></script>
 
 
 <!-- Alertify JS -->
