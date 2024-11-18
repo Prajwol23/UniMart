@@ -27,6 +27,32 @@ function redirect($url, $message)
     exit;
 }
 
+//admin side
+function getAllOrders()
+ {
+    global $con;
+    $query = "SELECT * FROM orders WHERE status = '0' ";
+    return $query_run = mysqli_query($con,$query);
+ }
+
+ //admin side
+
+ function  getOrderHistory()
+ {
+    global $con;
+    $query = "SELECT * FROM orders WHERE status != '0' ";
+    return $query_run = mysqli_query($con,$query);
+ }
+
+ //admin side
+function checkTrackingNoValid($trackingNo)
+{
+   global $con;
+
+   $query = "SELECT * FROM orders WHERE tracking_no = '$trackingNo' ";
+
+   return mysqli_query($con,$query);
+}
 
 
 ?>
