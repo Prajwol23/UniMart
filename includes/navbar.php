@@ -1,3 +1,8 @@
+<?php
+// Get the current page's filename
+$current_page = basename($_SERVER['PHP_SELF']);
+?>
+
 <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary"> -->
 <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark shadow">
   <div class="container">
@@ -8,29 +13,26 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+        <li class="nav-item me-1">
+          <a class="nav-link <?php echo($current_page == 'index.php') ? 'active' : ''; ?>" href="index.php"><i class="fa fa-home me-1"></i>Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="categories.php">Collections</a>
+        <li class="nav-item me-1">
+          <a class="nav-link <?php echo($current_page == 'categories.php') ? 'active' : ''; ?>" href="categories.php"><i class="fa fa-th me-1"></i>Collections</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="cart.php">Cart</a> 
+        <li class="nav-item me-1">
+          <a class="nav-link <?php echo($current_page == 'cart.php') ? 'active' : ''; ?>" href="cart.php"><i class="fa fa-shopping-cart me-1"></i>Cart</a> 
         </li>
-        <!-- <i class="fa fa-shopping-cart me-2"></i> -->
-
-        <!-- place line 17 to 19 inside line no 24 code so that the user can only add to cart if he is logged in -->
 
         <?php
         if (isset($_SESSION['auth'])) {
           ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <?= $_SESSION['auth_user']['name'];?>
+            <i class="fa fa-user-circle me-1"></i> <?= $_SESSION['auth_user']['name'];?>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="my-orders.php">Your Order's</a></li>
+              <li><a class="dropdown-item" href="#">Change Password</a></li>
               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
           </li>
@@ -38,11 +40,11 @@
         }
         else{
           ?>
-          <li class="nav-item">
-            <a class="nav-link" href="register.php">Register</a>
+          <li class="nav-item me-1">
+            <a class="nav-link" href="register.php"><i class="fa fa-user-plus me-1"></i>Register</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="login.php">Login</a>
+          <li class="nav-item me-1">
+            <a class="nav-link" href="login.php"><i class="fa fa-sign-in me-1"></i>Login</a>
           </li>
 
           <?php
