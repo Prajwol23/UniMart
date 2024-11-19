@@ -54,5 +54,13 @@ function checkTrackingNoValid($trackingNo)
    return mysqli_query($con,$query);
 }
 
+function  getAllUsers()
+{
+   global $con;
+
+   $query = "SELECT * FROM users WHERE role_as = '0' ORDER BY id DESC ";
+
+   return mysqli_query($con,$query);
+}
 
 ?>

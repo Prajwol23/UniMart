@@ -20,7 +20,7 @@ include('includes/header.php');
                         <div class="card-header p-2 ps-3">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <p class="text-sm mb-0 text-capitalize">Today's Money</p>
+                                    <p class="text-sm mb-0 text-capitalize">Total Categories</p>
                                     <h4 class="mb-0">$53k</h4>
                                 </div>
                                 <div
