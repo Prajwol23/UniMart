@@ -15,10 +15,17 @@ if (isset($_POST['register_btn'])) {
     $check_email_query = "SELECT email FROM users WHERE email = '$email'";
     $check_email_query_run = mysqli_query($con, $check_email_query);
 
-    if (mysqli_num_rows($check_email_query_run) > 0) {
+    if(strlen($phone) != 10){
+        $_SESSION['message'] = 'Phone no should be of 10 digits.';
+        header('Location: ../register.php');
+    }
+
+    else if (mysqli_num_rows($check_email_query_run) > 0) {
         $_SESSION['message'] = 'Email already registered.';
         header('Location: ../register.php');
-    } else {
+    } 
+    else 
+    {
         if ($password == $cpassword) {
             //insert user data
             $insert_query = "INSERT INTO users (name,email,phone,password) VALUES ('$name','$email','$phone','$password')";

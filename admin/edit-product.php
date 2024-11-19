@@ -29,7 +29,7 @@ include('includes/header.php');
                         <form action="code.php" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for="">Select Category</label>
+                                    <label class="mb-0">Select Category</label>
                                     <select name="category_id" class="form-select mb-2" required>
                                     <option selected>Select Category</option>
     

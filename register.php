@@ -34,27 +34,27 @@ include('includes/header.php');
                         <form action="functions/authcode.php" method="post">
                             <div class="mb-3">
                                 <label class="form-label">Name</label>
-                                <input type="text" name="name" class="form-control" placeholder="Enter your name">
+                                <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Phone</label>
                                 <input type="number" name="phone" class="form-control"
-                                    placeholder="Enter your phone number">
+                                    placeholder="Enter your phone number" required>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                                 <input type="email" name="email" class="form-control" placeholder="Enter your email"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    id="exampleInputEmail1" aria-describedby="emailHelp" required>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Password</label>
                                 <input type="password" name="password" class="form-control" placeholder="Enter password"
-                                    id="exampleInputPassword1">
+                                    id="exampleInputPassword1" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Confirm Password</label>
                                 <input type="password" name="cpassword" class="form-control"
-                                    placeholder="Confirm password">
+                                    placeholder="Confirm password" required>
                             </div>
                             <button type="submit" name="register_btn" class="btn btn-primary">Submit</button>
                         </form>

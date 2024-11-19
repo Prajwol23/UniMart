@@ -5,12 +5,12 @@ include('../functions/myfunctions.php');
 //for adding category into database
 if (isset($_POST['add_category_btn']))
  {
-  $name = $_POST['name'];
-  $slug = $_POST['slug'];
-  $description = $_POST['description'];
-  $meta_title = $_POST['meta_title'];
-  $meta_description = $_POST['meta_description'];
-  $meta_keywords = $_POST['meta_keywords'];
+  $name = mysqli_real_escape_string($con, $_POST['name']);
+  $slug = mysqli_real_escape_string($con, $_POST['slug']);
+  $description = mysqli_real_escape_string($con, $_POST['description']);
+  $meta_title = mysqli_real_escape_string($con, $_POST['meta_title']);
+  $meta_description = mysqli_real_escape_string($con, $_POST['meta_description']);
+  $meta_keywords = mysqli_real_escape_string($con, $_POST['meta_keywords']);  
   $status = isset($_POST['status']) ? '1' : '0';
   $popular = isset($_POST['popular']) ? '1' : '0';
 
@@ -39,13 +39,13 @@ if (isset($_POST['add_category_btn']))
 
 else if(isset($_POST['update_category_btn']))
 {
-  $category_id = $_POST['category_id'];
-  $name = $_POST['name'];
-  $slug = $_POST['slug'];
-  $description = $_POST['description'];
-  $meta_title = $_POST['meta_title'];
-  $meta_description = $_POST['meta_description'];
-  $meta_keywords = $_POST['meta_keywords'];
+  $category_id = mysqli_real_escape_string($con, $_POST['category_id']);
+  $name = mysqli_real_escape_string($con, $_POST['name']);
+  $slug = mysqli_real_escape_string($con, $_POST['slug']);
+  $description = mysqli_real_escape_string($con, $_POST['description']);
+  $meta_title = mysqli_real_escape_string($con, $_POST['meta_title']);
+  $meta_description = mysqli_real_escape_string($con, $_POST['meta_description']);
+  $meta_keywords = mysqli_real_escape_string($con, $_POST['meta_keywords']);  
   $status = isset($_POST['status']) ? '1' : '0';
   $popular = isset($_POST['popular']) ? '1' : '0';
 
@@ -127,17 +127,17 @@ else{
 //for adding product to database
 else if(isset($_POST['add_product_btn']))
 {
-  $category_id = $_POST['category_id'];
-  $name = $_POST['name'];
-  $slug = $_POST['slug'];
-  $small_description = $_POST['small_description'];
-  $description = $_POST['description'];
-  $orginal_price = $_POST['orginal_price'];
-  $selling_price = $_POST['selling_price'];
-  $qty = $_POST['qty'];
-  $meta_title = $_POST['meta_title'];
-  $meta_description = $_POST['meta_description'];
-  $meta_keywords = $_POST['meta_keywords'];
+  $category_id = mysqli_real_escape_string($con, $_POST['category_id']);
+  $name = mysqli_real_escape_string($con, $_POST['name']);
+  $slug = mysqli_real_escape_string($con, $_POST['slug']);
+  $small_description = mysqli_real_escape_string($con, $_POST['small_description']);
+  $description = mysqli_real_escape_string($con, $_POST['description']);
+  $orginal_price = mysqli_real_escape_string($con, $_POST['orginal_price']);
+  $selling_price = mysqli_real_escape_string($con, $_POST['selling_price']);
+  $qty = mysqli_real_escape_string($con, $_POST['qty']);
+  $meta_title = mysqli_real_escape_string($con, $_POST['meta_title']);
+  $meta_description = mysqli_real_escape_string($con, $_POST['meta_description']);
+  $meta_keywords = mysqli_real_escape_string($con, $_POST['meta_keywords']);  
   $status = isset($_POST['status']) ? '1' : '0';
   $trending = isset($_POST['trending']) ? '1' : '0';
 
@@ -147,6 +147,11 @@ else if(isset($_POST['add_product_btn']))
 
   $image_ext = pathinfo($image, PATHINFO_EXTENSION);
   $filename = time().'.'.$image_ext;
+
+  if($category_id == "default"){
+    redirect("add-product.php", "Category is mandatory.");
+    exit(0);
+  }
 
   $product_query = "INSERT INTO products (category_id,name,slug,small_description,description,orginal_price,selling_price,
                     image,qty,status,trending,meta_title,meta_keywords,meta_description)
@@ -169,18 +174,18 @@ else{
 //for updating product in database
 else if(isset($_POST['update_product_btn']))
 {
-  $product_id = $_POST['product_id'];
-  $category_id = $_POST['category_id'];
-  $name = $_POST['name'];
-  $slug = $_POST['slug'];
-  $small_description = $_POST['small_description'];
-  $description = $_POST['description'];
-  $orginal_price = $_POST['orginal_price'];
-  $selling_price = $_POST['selling_price'];
-  $qty = $_POST['qty'];
-  $meta_title = $_POST['meta_title'];
-  $meta_description = $_POST['meta_description'];
-  $meta_keywords = $_POST['meta_keywords'];
+  $product_id = mysqli_real_escape_string($con, $_POST['product_id']);
+  $category_id = mysqli_real_escape_string($con, $_POST['category_id']);
+  $name = mysqli_real_escape_string($con, $_POST['name']);
+  $slug = mysqli_real_escape_string($con, $_POST['slug']);
+  $small_description = mysqli_real_escape_string($con, $_POST['small_description']);
+  $description = mysqli_real_escape_string($con, $_POST['description']);
+  $orginal_price = mysqli_real_escape_string($con, $_POST['orginal_price']);
+  $selling_price = mysqli_real_escape_string($con, $_POST['selling_price']);
+  $qty = mysqli_real_escape_string($con, $_POST['qty']);
+  $meta_title = mysqli_real_escape_string($con, $_POST['meta_title']);
+  $meta_description = mysqli_real_escape_string($con, $_POST['meta_description']);
+  $meta_keywords = mysqli_real_escape_string($con, $_POST['meta_keywords']);  
   $status = isset($_POST['status']) ? '1' : '0';
   $trending = isset($_POST['trending']) ? '1' : '0';
 
@@ -202,7 +207,10 @@ else if(isset($_POST['update_product_btn']))
   {
     $update_filename = $old_image;
   }
-  $update_product_query = "UPDATE products SET name='$name', slug='$slug', small_description='$small_description',
+
+  
+
+  $update_product_query = "UPDATE products SET category_id ='$category_id', name='$name', slug='$slug', small_description='$small_description',
                           description='$description', orginal_price='$orginal_price', selling_price='$selling_price', qty='$qty',
                           meta_title='$meta_title', meta_description='$meta_description', meta_keywords='$meta_keywords', status='$status',
                           trending='$trending', image='$update_filename' WHERE id='$product_id'";
@@ -261,6 +269,7 @@ else{
 }
 }
 
+//to update status
 else if(isset($_POST['update_order_btn']))
 {
  $track_no = $_POST['tracking_no'];

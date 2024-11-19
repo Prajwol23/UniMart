@@ -40,7 +40,7 @@ include('authenticate.php');
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="fw-bold ">Phone</label>
-                                <input type="text" name="phone" required placeholder="Enter your phone number"
+                                <input type="number" name="phone" required placeholder="Enter your phone number"
                                     class="form-control">
                             </div>
                             <div class="col-md-6 mb-3">
