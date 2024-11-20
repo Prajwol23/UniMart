@@ -20,87 +20,78 @@ include('includes/header.php');
                         <div class="card-header p-2 ps-3">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <p class="text-sm mb-0 text-capitalize">Total Categories</p>
-                                    <h4 class="mb-0">$53k</h4>
+                                    <p class="text-sm mb-0 text-capitalize"><strong>Total Users</strong></p>
+                                    <?php $noOfUsers = countItems("users","role_as") ?>
+                                    <h4 class="mb-0"><?= $noOfUsers ?></h4>
                                 </div>
                                 <div
                                     class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">weekend</i>
+                                    <i class="material-symbols-rounded opacity-10">account_circle</i>
                                 </div>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+55% </span>than last
-                                week</p>
-                        </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                                    <h4 class="mb-0">2300</h4>
-                                </div>
-                                <div
-                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">person</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+3% </span>than last
-                                month</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Ads Views</p>
-                                    <h4 class="mb-0">3,462</h4>
-                                </div>
-                                <div
-                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">leaderboard</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-danger font-weight-bolder">-2% </span>than
-                                yesterday</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6">
-                    <div class="card">
-                        <div class="card-header p-2 ps-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="text-sm mb-0 text-capitalize">Sales</p>
-                                    <h4 class="mb-0">$103,430</h4>
-                                </div>
-                                <div
-                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                                    <i class="material-symbols-rounded opacity-10">weekend</i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-                        <div class="card-footer p-2 ps-3">
-                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+5% </span>than
-                                yesterday</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-header p-2 ps-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-sm mb-0 text-capitalize"><strong>Total Categories</strong></p>
+                                    <?php $noOfCategories = countItems("categories","status") ?>
+                                    <h4 class="mb-0"><?= $noOfCategories ?></h4>
+                                </div>
+                                <div
+                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                    <i class="material-symbols-rounded opacity-10">collections</i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-header p-2 ps-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-sm mb-0 text-capitalize"><strong>Total Products</strong></p>
+                                    <?php $noOfProducts = countItems("products","status") ?>
+                                    <h4 class="mb-0"><?= $noOfProducts ?></h4>
+                                </div>
+                                <div
+                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                    <i class="material-symbols-rounded opacity-10">storefront</i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-header p-2 ps-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-sm mb-0 text-capitalize"><strong>Total Order Pending</strong></p>
+                                    <?php $noOfOrders = countItems("orders","status") ?>
+                                    <h4 class="mb-0"><?= $noOfOrders ?></h4>
+                                </div>
+                                <div
+                                    class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                    <i class="material-symbols-rounded opacity-10">receipt_long</i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                    </div>
+                </div>
+                 
+            </div>
         </div>
     </div>
 </div>
