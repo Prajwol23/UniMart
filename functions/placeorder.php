@@ -4,7 +4,6 @@ session_start();
 
 include('../config/dbcon.php');
 
-
 if (isset($_SESSION['auth'])) 
 {
     if (isset($_POST['placeOrderBtn'])) 
@@ -14,9 +13,10 @@ if (isset($_SESSION['auth']))
         $phone = mysqli_real_escape_string($con,$_POST['phone']);
         $pincode = mysqli_real_escape_string($con,$_POST['pincode']);
         $address = mysqli_real_escape_string($con,$_POST['address']);
-        $payment_mode = mysqli_real_escape_string($con,$_POST['payment_mode']);
-        $payment_id = mysqli_real_escape_string($con,$_POST['payment_id']);
+        $payment_mode = "Esewa"; // Set the payment mode to eSewa
+        $payment_id = ""; // Leave empty, will be handled after eSewa payment confirmation
         
+        // Validation checks
         if($name == "" || $email=="" || $phone== "" || $pincode == "" || $address == "")
         {
             $_SESSION['message'] = "All fields are mandatory.";
@@ -29,14 +29,13 @@ if (isset($_SESSION['auth']))
             header('Location: ../checkout.php');
             exit (0);
         }
-    
 
         $userId = $_SESSION['auth_user']['user_id'];
         $query = "SELECT c.id as cid, c.prod_id, c.prod_qty, p.id as pid, p.name, p.image, p.selling_price 
                   FROM carts c, products p WHERE c.prod_id = p.id AND c.user_id='$userId' ORDER BY c.id DESC";
 
         $query_run = mysqli_query($con,$query);
-   
+
         $totalPrice = 0;
 
         foreach ($query_run as $citem) 
@@ -46,12 +45,12 @@ if (isset($_SESSION['auth']))
 
         $tracking_no = "unicart".rand(1111,9999).substr($phone,2);
 
-        //to store the order details form in orders table
+        // Insert order into orders table
         $insert_query = "INSERT INTO orders (tracking_no, user_id, name, email, phone, address, pincode, total_price, 
                   payment_mode, payment_id) VALUES ('$tracking_no', '$userId', '$name', '$email', '$phone', 
-                  '$address', '$pincode', '$totalPrice', '$payment_mode', '$payment_id' )";
+                  '$address', '$pincode', '$totalPrice', '$payment_mode', '$payment_id')";
 
-        $insert_query_run = mysqli_query($con,$insert_query);
+        $insert_query_run = mysqli_query($con, $insert_query);
 
         if($insert_query_run)
         {
@@ -59,51 +58,61 @@ if (isset($_SESSION['auth']))
 
             foreach ($query_run as $citem) 
             {
-            
-            $prod_id = $citem['prod_id'];
-            $prod_qty = $citem['prod_qty'];
-            $price = $citem['selling_price'];
+                $prod_id = $citem['prod_id'];
+                $prod_qty = $citem['prod_qty'];
+                $price = $citem['selling_price'];
 
-            //to insert ordered item
-            $insert_items_query = "INSERT INTO order_items (order_id, prod_id, qty, price) 
-                                   VALUES ('$order_id', '$prod_id', '$prod_qty', '$price') ";
+                // Insert ordered items into order_items table
+                $insert_items_query = "INSERT INTO order_items (order_id, prod_id, qty, price) 
+                                       VALUES ('$order_id', '$prod_id', '$prod_qty', '$price') ";
 
-            $insert_items_query_run = mysqli_query($con,$insert_items_query); 
-            
-            //to reduce qty of products after order is placed
-            $product_query = "SELECT * FROM products WHERE id = '$prod_id' LIMIT 1 ";
+                $insert_items_query_run = mysqli_query($con, $insert_items_query); 
+                
+                // Reduce product quantity after order placement
+                $product_query = "SELECT * FROM products WHERE id = '$prod_id' LIMIT 1 ";
+                $product_query_run = mysqli_query($con, $product_query);
 
-            $product_query_run = mysqli_query($con,$product_query);
+                $productData = mysqli_fetch_array($product_query_run);
 
-            $productData = mysqli_fetch_array($product_query_run);
+                $current_qty = $productData["qty"];
+                $new_qty = $current_qty - $prod_qty;
 
-            $current_qty = $productData["qty"];
-
-            $new_qty = $current_qty - $prod_qty;
-
-            $updateQty_query = "UPDATE products SET qty = '$new_qty' WHERE id = '$prod_id' ";
-
-            $updateQty_query_run = mysqli_query($con,$updateQty_query); 
-
+                $updateQty_query = "UPDATE products SET qty = '$new_qty' WHERE id = '$prod_id' ";
+                $updateQty_query_run = mysqli_query($con, $updateQty_query); 
             }
 
-            //emptying cart after user places order
-            $deleteCartQuery = "DELETE FROM carts WHERE user_id = '$userId' ";
-            $deleteCartQuery_run = mysqli_query($con,$deleteCartQuery);
- 
-            $_SESSION['message'] = "Order placed successfully";
-            header('Location: ../my-orders.php');
-            die();
+            // Clear the cart after order placement
+            $deleteCartQuery = "DELETE FROM carts WHERE user_id = '$userId'";
+            $deleteCartQuery_run = mysqli_query($con, $deleteCartQuery);
 
+            // Redirect to eSewa payment gateway
+            $esewaUrl = "https://uat.esewa.com.np/epay/main"; // eSewa test URL
+            $merchantCode = "EPAYTEST"; // eSewa test merchant code
+            $successUrl = "http://localhost/MobileHub%20-%20Copy/esewa-success.php?q=su&oid=$order_id&amt=$totalPrice";
+            $failureUrl = "http://localhost/MobileHub%20-%20Copy/esewa-failure.php?q=fu";
+
+            echo "<form id='esewaForm' action='$esewaUrl' method='POST'>
+                <input type='hidden' name='tAmt' value='$totalPrice'>
+                <input type='hidden' name='amt' value='$totalPrice'>
+                <input type='hidden' name='txAmt' value='0'>
+                <input type='hidden' name='psc' value='0'>
+                <input type='hidden' name='pdc' value='0'>
+                <input type='hidden' name='scd' value='$merchantCode'>
+                <input type='hidden' name='pid' value='$tracking_no'>
+                <input type='hidden' name='su' value='$successUrl'>
+                <input type='hidden' name='fu' value='$failureUrl'>
+            </form>
+            
+            <script>document.getElementById('esewaForm').submit();</script>";
+            exit();
         }
-
-        else{
-
+        else {
+            $_SESSION['message'] = "Something went wrong while placing your order.";
+            header('Location: ../checkout.php');
+            exit();
         }
-
     }
 }
-
 else{
     header('Location: ../index.php');
 }

@@ -89,8 +89,8 @@ include('authenticate.php');
                         <hr>
                         <h5>Total Price : <span class="float-end fw-bold"><?= $totalPrice ?></span></h5>
                         <div class="">
-                            <input type="hidden" name="payment_mode" value="COD">
-                            <button type="submit" name="placeOrderBtn" class="btn btn-primary w-100">Confirm and place order | COD</button>
+                            <input type="hidden" name="payment_mode" value="eSewa">
+                            <button type="submit" name="placeOrderBtn" class="btn btn-primary w-100">Confirm and place order | eSewa</button>
                         </div>
 
                     </div>
