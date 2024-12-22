@@ -1,6 +1,9 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+   session_start();
+}
 include('config/dbcon.php');
+
 
 //user side
 function getAllActive($table) //getting all the categories that are active by status
