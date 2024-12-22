@@ -88,8 +88,8 @@ if (isset($_SESSION['auth']))
             // Redirect to eSewa payment gateway
             $esewaUrl = "https://uat.esewa.com.np/epay/main"; // eSewa test URL
             $merchantCode = "EPAYTEST"; // eSewa test merchant code
-            $successUrl = "http://localhost/MobileHub%20-%20Copy/esewa-success.php?q=su&oid=$order_id&amt=$totalPrice";
-            $failureUrl = "http://localhost/MobileHub%20-%20Copy/esewa-failure.php?q=fu";
+            $successUrl = "http://localhost/MobileHub/esewa-success.php?q=su&oid=$order_id&amt=$totalPrice";
+            $failureUrl = "http://localhost/MobileHub/esewa-failure.php?q=fu";
 
             echo "<form id='esewaForm' action='$esewaUrl' method='POST'>
                 <input type='hidden' name='tAmt' value='$totalPrice'>
